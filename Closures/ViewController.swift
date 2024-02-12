@@ -27,6 +27,7 @@ class ViewController: UIViewController {
         })
         print(data)
         
+        
         do {
             data = try data.throwableMapString(closure: { day in
                 var dayLower = day.lowercased()
@@ -40,6 +41,14 @@ class ViewController: UIViewController {
         } catch {
             print(error)
         }
+        print(data)
+        
+        
+        data = data.throwableMapString(closure: { day in
+            var dayLower = day.lowercased()
+            dayLower += exclamation
+            return dayLower
+        })
         print(data)
     }
     
