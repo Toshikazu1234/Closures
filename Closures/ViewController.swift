@@ -25,14 +25,15 @@ class ViewController: UIViewController {
             dayLower += exclamation
             return dayLower
         })
-        print(data)        
+        print(data)
         
         do {
             data = try data.throwableMapString(closure: { day in
                 var dayLower = day.lowercased()
-                if dayLower == "monday" {
+                if dayLower.contains("hi") {
                     throw CustomError.boo
                 } else {
+                    dayLower += exclamation
                     return dayLower
                 }
             })
