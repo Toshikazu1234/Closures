@@ -19,41 +19,25 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         data = setData()
-        
-        data = data.mapString(closure: { day in
-            var dayLower = day.lowercased()
-            dayLower += exclamation
-            return dayLower
-        })
         print(data)
         
         
-        do {
-            data = try data.throwableMapString(closure: { day in
-                var dayLower = day.lowercased()
-                if dayLower.contains("hi") {
-                    throw CustomError.boo
-                } else {
-                    dayLower += exclamation
-                    return dayLower
-                }
-            })
-        } catch {
-            print(error)
+        fetchData { [weak self] data in
+            guard let self else { return }
+            self.data = data
         }
-        print(data)
         
         
-        data = data.throwableMapString(closure: { day in
-            var dayLower = day.lowercased()
-            dayLower += exclamation
-            return dayLower
-        })
+        data = manipulateData { day in
+            var day = day
+            day += exclamation
+            return day
+        }
         print(data)
     }
     
     func setData() -> [String] {
-        var data = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+        let data = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
         return data
     }
     
